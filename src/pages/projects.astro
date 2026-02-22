@@ -1,0 +1,282 @@
+---
+import Project from "@/components/project.astro";
+import Navbar from "@/components/Navbar.astro";
+import * as icons from "@/assets/project-icons";
+import "../styles/background-lines.css";
+import "../styles/fonts.css";
+
+const projects = [
+  {
+    title: "Zig Operating System",
+    timeframe: "May 2025 - Present",
+    secondaryDate: "On & Off :)",
+    description:
+      "Currently developing a RISC-V operating system in Zig, with a focus on simplicity and performance.",
+    href: "https://github.com/dandandooo/zig-os",
+    stack: ["Zig", "RISC-V", "QEMU", "ELF"],
+    accent: "amber",
+    icon: icons.zigIcon,
+  },
+  {
+    title: "Illinix 391",
+    timeframe: "Mar 2025 - May 2025",
+    secondaryDate: "Spring 2025",
+    description:
+      "Developed RISC-V operating system, with sound driver, network stack, shell, filesystem, and DOOM.",
+    stack: ["C", "QEMU", "RISC-V", "Assembly"],
+    accent: "cyan",
+    icon: icons.cIcon,
+    // award: "2nd Place"
+  },
+  {
+    title: "Convolutional Neural Network",
+    timeframe: "Mar 2026 - May 2026",
+    secondaryDate: "Spring 2026",
+    description:
+      "Wrote a full inference pass for the LeNet-5 network using highly optimized and fused CUDA kernels.",
+    stack: ["CUDA", "C++"],
+    accent: "lime",
+    icon: icons.cudaIcon,
+  },
+  {
+    title: "Planet Hopper",
+    timeframe: "Sep 2025 - Dec 2025",
+    secondaryDate: "Fall 2025",
+    description:
+        "Local-gravity based 2D platformer with a space-based narrative, with a twist, and 10 featureful levels.",
+    href: "https://github.com/Dandandooo/planet-hopper",
+    stack: ["Godot"],
+    accent: "plum",
+    icon: icons.godotIcon,
+  },
+  {
+    title: "Hunter LLM",
+    timeframe: "AgentOps Hacknight 2025",
+    secondaryDate: "Feb 2025",
+    description:
+        "LLM Agent for automated network reconnaissance and vulnerability scanning.",
+    stack: ["Python", "Agents SDK"],
+    accent: "rose",
+    icon: icons.pythonIcon,
+    award: "1st Place"
+  },
+  {
+    title: "BlackBox Studio",
+    timeframe: "HackIllinois 2025",
+    secondaryDate: "Mar 2025",
+    description:
+      "Graphical functional programming editor that lets you visualize function interaction.",
+    href: "https://github.com/Dandandooo/BlackBox-Studio",
+    stack: ["React", "JavaScript", "Rust"],
+    accent: "plum",
+    icon: icons.reactIcon,
+    award: "Best Dev-tool"
+  },
+  {
+    title: "Hello Lang",
+    timeframe: "HackIllinois 2024",
+    secondaryDate: "Mar 2024",
+    description:
+      "Modular tool to create hello world project in any language.",
+    href: "https://github.com/dandandooo/create-project",
+    stack: ["Rust"],
+    accent: "amber",
+    icon: icons.rustIcon,
+    award: "1st Place"
+  },
+  {
+    title: "My Dotfiles",
+    timeframe: "Always",
+    description:
+      "My linux and terminal customizations, written as a modular Nix configuration.",
+    href: "https://github.com/dandandooo/dotfiles",
+    stack: ["Nix"],
+    accent: "cyan",
+    icon: icons.nixIcon,
+  },
+  {
+    title: "PPTGPT",
+    timeframe: "Aug 2024 - May 2025",
+    secondaryDate: "Sophomore Year",
+    description:
+        "LLM Framework for modifying PowerPoint presentations using human instructions and visual cues.",
+    href: "https://github.com/dandandooo/PPTGPT",
+    stack: ["Python", "Gemini"],
+    accent: "orange",
+    icon: icons.pythonIcon,
+  },
+  {
+    title: "News Comparator",
+    timeframe: "HackTJ 9.0",
+    secondaryDate: "Mar 2022",
+    description:
+        "Web tool to compare news articles using cosine similarity to highlight similarities and differences.",
+    href: "https://github.com/bradley-cao/News-Comparator",
+    stack: ["Python", "Flask", "JavaScript"],
+    accent: "rose",
+    icon: icons.pythonIcon,
+    award: "Washington Post Prize"
+  },
+  {
+    title: "Energy Undead",
+    timeframe: "HackTJ 10.0",
+    secondaryDate: "Mar 2023",
+    description:
+      "An interactive collection of minigames designed to teach children to save energy at home.",
+    href: "https://github.com/bradley-cao/Energy-Undead",
+    stack: ["Unity", "C#"],
+    accent: "lime",
+    icon: icons.unityIcon
+  },
+  {
+    title: "Mortgage GPT",
+    timeframe: "May 2024 - Aug 2024",
+    secondaryDate: "Summer 2024",
+    description:
+      "A chatbot designed to assist users with details from Freddy Mac's and Fannie Mae's Servicer & Seller guides.",
+    stack: ["Python", "React", "TypeScript", "OpenAI"],
+    accent: "cyan",
+    icon: icons.reactIcon,
+  },
+  {
+    title: "This Website",
+    timeframe: "Feb 2026",
+    description: "This website you're looking at!",
+    stack: ["Astro", "TypeScript"],
+    accent: "plum",
+    icon: icons.astroIcon,
+  }
+];
+---
+
+<html lang="en">
+  <head>
+    <title>Daniel's Projects</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon-b.svg" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <Navbar current="projects" />
+
+    <main>
+      <header>
+        <p class="kicker">Selected builds, research, and experiments</p>
+        <h1>Projects</h1>
+      </header>
+
+      <section class="project-grid" aria-label="Projects">
+        {projects.map((project) => <Project {...project} />)}
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(:root) {
+    --page-bg-color: #070a11;
+    --page-background:
+      linear-gradient(180deg, #0d1930 0%, #091325 48%, #070a11 100%),
+      radial-gradient(100vw 60vh at 10% -10%, #2f5f9a4d, transparent 55%),
+      radial-gradient(100vw 60vh at 85% -20%, #3f6f9f42, transparent 60%);
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #f8fafc;
+  }
+
+  :global(body) {
+    margin: 0;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+    color: #f8fafc;
+    position: relative;
+    isolation: isolate;
+    font-family: "Lexend", "Segoe UI", sans-serif;
+  }
+
+  :global(:root) {
+    --accent-cyan: #38bdf8;
+    --accent-lime: #a3e635;
+    --accent-amber: #fbbf24;
+    --accent-rose: #fb7185;
+    --accent-plum: #c084fc;
+    --accent-orange: #fb923c;
+  }
+
+  main {
+    width: min(1120px, 92vw);
+    margin: 1.25rem auto 2.5rem;
+  }
+
+  .kicker {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a5b4fc;
+    font-size: 0.75rem;
+  }
+
+  h1 {
+    margin: 0.15rem 0 1.2rem;
+    font-family: "Rajdhani", sans-serif;
+    letter-spacing: 0.04em;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .project-grid :global(.info-card) {
+    grid-column: span 4;
+  }
+
+  .project-grid :global(.info-card:nth-child(3n + 1)) {
+    transform: translateY(0.4rem) rotate(-0.35deg);
+  }
+
+  .project-grid :global(.info-card:nth-child(3n + 2)) {
+    transform: translateY(0.95rem) rotate(0.3deg);
+  }
+
+  .project-grid :global(.info-card:nth-child(3n)) {
+    transform: translateY(.8rem) rotate(-0.25deg);
+  }
+
+  .project-grid :global(.info-card:hover) {
+    transform: translateY(-4px) rotate(-0.2deg);
+  }
+
+  @media (max-width: 1000px) {
+    .project-grid :global(.info-card) {
+      grid-column: span 6;
+    }
+
+    .project-grid :global(.info-card:nth-child(odd)) {
+      transform: translateY(0.4rem);
+    }
+
+    .project-grid :global(.info-card:nth-child(even)) {
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .project-grid {
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .project-grid :global(.info-card) {
+      grid-column: auto;
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,17 @@
+---
+import {Image} from "astro:assets";
+
+const iconUrls: Record<string, string> = import.meta.glob("@/assets/icons/*.svg", {
+    as: "url",
+    eager: true,
+});
+
+const skillIcons: Record<string, string> = Object.fromEntries(
+    Object.entries(iconUrls).map(([path, url]) => [
+        path.split("/").pop()!.replace(".svg", ""),
+        url
+    ])
+)
+---
+<!--<Image src={skillIcons["python"]} alt="python"/>-->
+<Image src="/icons/python.svg" alt="python" width={110} height={110}/>

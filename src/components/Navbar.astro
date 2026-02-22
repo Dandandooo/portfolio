@@ -1,0 +1,80 @@
+---
+interface Props {
+  current: "home" | "projects" | "research";
+}
+
+const { current } = Astro.props;
+---
+
+<nav class="toolbar" aria-label="Primary">
+  <a class:list={["tool-btn", { active: current === "home" }]} href="/" aria-current={current === "home" ? "page" : undefined}>Home</a>
+  <a
+    class:list={["tool-btn", { active: current === "projects" }]}
+    href="/projects"
+    aria-current={current === "projects" ? "page" : undefined}
+  >
+    Projects
+  </a>
+  <a
+    class:list={["tool-btn", { active: current === "research" }]}
+    href="/research"
+    aria-current={current === "research" ? "page" : undefined}
+  >
+    Research
+  </a>
+  <a
+      class:list={["tool-btn", { active: false }]}
+      href="https://drive.google.com/file/d/1_dAI2V39bt89aqAvf-Q741beMLahxgGs/view?usp=sharing"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-current={undefined}
+  >
+    Resume
+  </a>
+</nav>
+
+<style>
+  .toolbar {
+    position: sticky;
+    top: 1rem;
+    width: fit-content;
+    margin: 1rem auto 0;
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.4rem;
+    border-radius: 999px;
+    border: 1px solid #ffffff26;
+    background: #090d16bd;
+    backdrop-filter: blur(10px);
+    z-index: 3;
+  }
+
+  .tool-btn {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 0.48rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid #ffffff22;
+    background: #ffffff0f;
+  }
+
+  .tool-btn.active {
+    border-color: #ffffff66;
+    background: #ffffff1f;
+  }
+
+  .tool-btn:focus-visible {
+    outline: 2px solid rgba(169, 220, 118, 0.9);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .toolbar {
+      margin-top: 0.75rem;
+    }
+  }
+</style>

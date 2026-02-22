@@ -1,0 +1,35 @@
+---
+import resume from "@/assets/resume/philipov_cs_resume1.pdf";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daniel's Resume</title>
+  </head>
+  <body>
+    <iframe
+      src={resume}
+      title="Daniel Philipov Resume"
+      loading="lazy"
+      allow="fullscreen"
+    />
+  </body>
+</html>
+
+<style>
+  :global(html),
+  :global(body) {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  iframe {
+    display: block;
+    border: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+</style>

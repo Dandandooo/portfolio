@@ -1,0 +1,38 @@
+---
+import InfoCard from "@/components/InfoCard.astro";
+
+const {
+  title = "Creative Project Title",
+  description,
+  href,
+  stack = [],
+  accent = "cyan",
+  timeframe = "Timeframe TBD",
+  secondaryDate,
+  award,
+  icon,
+} = Astro.props;
+
+const accentMap: Record<string, string> = {
+  cyan: "var(--accent-cyan)",
+  lime: "var(--accent-lime)",
+  amber: "var(--accent-amber)",
+  rose: "var(--accent-rose)",
+  plum: "var(--accent-plum)",
+  orange: "var(--accent-orange)",
+};
+
+const accentColor = accentMap[accent] ?? accentMap.cyan;
+---
+
+<InfoCard
+  title={title}
+  description={description}
+  href={href}
+  tags={stack}
+  accent={accentColor}
+  eyebrow={timeframe}
+  secondaryDate={secondaryDate}
+  award={award}
+  icon={icon}
+/>

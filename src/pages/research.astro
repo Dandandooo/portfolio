@@ -1,0 +1,81 @@
+---
+import "../styles/background-lines.css";
+import "../styles/fonts.css";
+import Navbar from "@/components/Navbar.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-p.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Daniel's Research</title>
+  </head>
+  <body>
+    <Navbar current="research" />
+
+    <main aria-label="Research">
+      <header>
+        <p class="kicker">Selected Papers and Publications</p>
+        <h1>Research</h1>
+      </header>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(:root) {
+    --page-bg-color: #070a11;
+    --page-background:
+      linear-gradient(180deg, #171025 0%, #110b1a 48%, #09070d 100%),
+      radial-gradient(100vw 60vh at 10% -10%, #8f6ad466, transparent 55%),
+      radial-gradient(100vw 60vh at 85% -20%, #b48be652, transparent 60%);
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    color: #f8fafc;
+  }
+
+  :global(body) {
+    margin: 0;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+    color: #f8fafc;
+    position: relative;
+    isolation: isolate;
+    font-family: "Lexend", "Segoe UI", sans-serif;
+  }
+
+  :global(:root) {
+    --accent-cyan: #38bdf8;
+    --accent-lime: #a3e635;
+    --accent-amber: #fbbf24;
+    --accent-rose: #fb7185;
+    --accent-plum: #c084fc;
+    --accent-orange: #fb923c;
+  }
+
+  main {
+    width: min(1120px, 92vw);
+    margin: 1.25rem auto 2.5rem;
+  }
+
+  .kicker {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #a5b4fc;
+    font-size: 0.75rem;
+  }
+
+  h1 {
+    margin: 0.15rem 0 1.2rem;
+    font-family: "Rajdhani", sans-serif;
+    letter-spacing: 0.04em;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+</style>

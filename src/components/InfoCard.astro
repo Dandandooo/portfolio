@@ -1,0 +1,285 @@
+---
+const {
+  title,
+  description,
+  href,
+  tags = [],
+  accent = "cyan",
+  eyebrow = "Info Card",
+  secondaryDate,
+  award,
+  icon,
+} = Astro.props;
+
+const normalizedSecondaryDate =
+  typeof secondaryDate === "string" ? secondaryDate.trim() : secondaryDate;
+const hasSecondaryDate = Boolean(normalizedSecondaryDate);
+const normalizedAward = typeof award === "string" ? award.trim() : award;
+const hasAward = Boolean(normalizedAward);
+---
+
+<article class="info-card" style={`--card-accent: ${accent};`}>
+  <div class="card-header">
+    <div class="header-copy">
+      <div class="eyebrow-wrap">
+        <div class="eyebrow" tabindex={hasSecondaryDate ? 0 : undefined}>
+          <span class={hasSecondaryDate ? "eyebrow-primary can-swap" : "eyebrow-primary"}>
+            {eyebrow}
+          </span>
+          {hasSecondaryDate && (
+            <span class="eyebrow-secondary" aria-hidden="true">{normalizedSecondaryDate}</span>
+          )}
+        </div>
+      </div>
+      <h2>{title}</h2>
+    </div>
+    {icon && (
+      <span class="card-icon" aria-hidden="true">
+        <img class="card-icon-image" src={icon} alt="" />
+      </span>
+    )}
+  </div>
+  <p>{description}</p>
+  <ul class="stack" aria-label={`${title} technologies`}>
+    {tags.map((item: string) => <li>{item}</li>)}
+  </ul>
+  {(href || hasAward) && (
+    <div class="card-footer">
+      {href ? (
+        <a class="card-link" href={href} target="_blank" rel="noreferrer">
+          View project
+        </a>
+      ) : (
+        <span />
+      )}
+      {hasAward && (
+        <div class="award-badge" aria-label={`Award: ${normalizedAward}`}>
+          {normalizedAward}
+        </div>
+      )}
+    </div>
+  )}
+</article>
+
+<style>
+  .info-card {
+    position: relative;
+    display: grid;
+    gap: 0.85rem;
+    padding: 1.15rem;
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, var(--card-accent) 50%, #ffffff14);
+    background:
+      radial-gradient(120% 120% at 0% 0%, color-mix(in srgb, var(--card-accent) 26%, transparent), transparent 58%),
+      linear-gradient(180deg, #0d1117f2, #0d1117de);
+    box-shadow: 0 10px 35px #00000040;
+    transition: transform 140ms ease, border-color 140ms ease;
+  }
+
+  .info-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    border: 1px solid #ffffff1f;
+    mask: linear-gradient(#000, transparent 30%);
+  }
+
+  .info-card:hover {
+    transform: translateY(-3px) rotate(-0.25deg);
+    border-color: color-mix(in srgb, var(--card-accent) 78%, #fff5);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    width: fit-content;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--card-accent) 75%, #f8fafc);
+    border: 1px solid #ffffff2a;
+    border-radius: 999px;
+    padding: 0.25rem 0.55rem;
+    background: #ffffff0d;
+  }
+
+  .eyebrow-wrap {
+    position: relative;
+    width: fit-content;
+  }
+
+  .eyebrow-primary {
+    display: inline-block;
+    transition: opacity 120ms ease;
+  }
+
+  .eyebrow-secondary {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
+    white-space: nowrap;
+  }
+
+  .eyebrow-wrap:hover .eyebrow-secondary,
+  .eyebrow:focus-visible .eyebrow-secondary {
+    opacity: 1;
+  }
+
+  .eyebrow-wrap:hover .eyebrow-primary.can-swap,
+  .eyebrow:focus-visible .eyebrow-primary.can-swap {
+    opacity: 0;
+  }
+
+  .eyebrow:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--card-accent) 70%, #fff);
+    outline-offset: 2px;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
+
+  .header-copy {
+    display: grid;
+    gap: 0.55rem;
+    min-width: 0;
+  }
+
+  .card-icon {
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    opacity: 0.88;
+    pointer-events: none;
+    flex: 0 0 auto;
+    margin-top: 0.15rem;
+  }
+
+  .card-icon-image {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 2px #0000005c);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.06rem, 1vw + 0.78rem, 1.42rem);
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 0;
+    color: #e2e8f0;
+    line-height: 1.55;
+    font-size: 0.96rem;
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .stack li {
+    font-size: 0.76rem;
+    padding: 0.25rem 0.52rem;
+    border: 1px solid #ffffff21;
+    border-radius: 999px;
+    color: #dbe6f5;
+    background: #ffffff0d;
+  }
+
+  .card-link {
+    width: fit-content;
+    margin-top: 0.2rem;
+    color: #f8fafc;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--card-accent) 70%, #f8fafc66);
+    font-size: 0.86rem;
+    letter-spacing: 0.01em;
+  }
+
+  .card-link:hover {
+    border-bottom-color: color-mix(in srgb, var(--card-accent) 92%, #f8fafc);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.7rem;
+    margin-top: 0.2rem;
+  }
+
+  .award-badge {
+    margin-left: auto;
+    font-size: 0.86rem;
+    letter-spacing: 0.04em;
+    color: #f6d457;
+    border: 1px solid #ffd84d66;
+    border-radius: 999px;
+    background: #ffd84d1a;
+    padding: 0.14rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  :global(.project-grid .info-card) {
+    grid-column: span 4;
+  }
+
+  :global(.project-grid .info-card:nth-child(3n + 1)) {
+    transform: translateY(0.35rem) rotate(-0.4deg);
+  }
+
+  :global(.project-grid .info-card:nth-child(3n + 2)) {
+    transform: translateY(1.35rem) rotate(0.45deg);
+  }
+
+  :global(.project-grid .info-card:nth-child(3n)) {
+    transform: translateY(-0.2rem) rotate(-0.2deg);
+  }
+
+  :global(.project-grid .info-card:hover) {
+    transform: translateY(-4px) rotate(-0.25deg);
+  }
+
+  @media (max-width: 1000px) {
+    :global(.project-grid .info-card) {
+      grid-column: span 6;
+    }
+
+    :global(.project-grid .info-card:nth-child(odd)) {
+      transform: translateY(0.45rem);
+    }
+
+    :global(.project-grid .info-card:nth-child(even)) {
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    :global(.project-grid .info-card) {
+      grid-column: auto;
+      transform: none;
+    }
+  }
+</style>
