@@ -5,9 +5,9 @@
         </g>
     </g>
     <style>
-        path { fill: #150E21; }
+        path { fill: #442432; }
         @media (prefers-color-scheme: dark) {
-        path { fill: #A5B4FC; }
+        path { fill: #FFD97E; }
         }
     </style>
 </svg>
