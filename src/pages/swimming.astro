@@ -8,18 +8,18 @@ import Navbar from "@/components/Navbar.astro";
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon-p.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-b.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Daniel's Research</title>
+    <title>Daniel's Swimming</title>
   </head>
   <body>
-    <Navbar current="research" />
+    <Navbar current="swimming" />
 
-    <main aria-label="Research">
+    <main aria-label="Swimming">
       <header>
-        <p class="kicker">Selected Papers and Publications</p>
-        <h1>Research</h1>
+        <p class="kicker">Training, racing, and progress in the pool</p>
+        <h1>Swimming</h1>
       </header>
     </main>
   </body>
@@ -27,11 +27,11 @@ import Navbar from "@/components/Navbar.astro";
 
 <style>
   :global(:root) {
-    --page-bg-color: #070a11;
+    --page-bg-color: #02050e;
     --page-background:
-      linear-gradient(180deg, #171025 0%, #110b1a 48%, #09070d 100%),
-      radial-gradient(100vw 60vh at 10% -10%, #8f6ad466, transparent 55%),
-      radial-gradient(100vw 60vh at 85% -20%, #b48be652, transparent 60%);
+      linear-gradient(180deg, #091c3c 0%, #05122a 46%, #02050e 100%),
+      radial-gradient(100vw 60vh at 10% -10%, #74a6d326, transparent 55%),
+      radial-gradient(100vw 60vh at 85% -20%, #7fb8d81f, transparent 60%);
     margin: 0;
     height: 100%;
     overflow: hidden;
@@ -53,11 +53,12 @@ import Navbar from "@/components/Navbar.astro";
 
   :global(:root) {
     --accent-cyan: #38bdf8;
-    --accent-lime: #a3e635;
-    --accent-amber: #fbbf24;
-    --accent-rose: #fb7185;
-    --accent-plum: #c084fc;
-    --accent-orange: #fb923c;
+    --accent-lime: #67e8f9;
+    --accent-amber: #60a5fa;
+    --accent-rose: #7dd3fc;
+    --accent-plum: #93c5fd;
+    --accent-orange: #0ea5e9;
+    --line-pattern-color: rgba(186, 228, 255, 0.16);
   }
 
   main {
@@ -69,7 +70,7 @@ import Navbar from "@/components/Navbar.astro";
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #a5b4fc;
+    color: #93c5fd;
     font-size: 0.75rem;
   }
 

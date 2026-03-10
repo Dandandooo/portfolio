@@ -1,12 +1,12 @@
 ---
 interface Props {
-  current: "home" | "projects" | "research";
+  current: "home" | "projects" | "research" | "swimming" | "photography";
 }
 
 const { current } = Astro.props;
 ---
 
-<nav class="toolbar" aria-label="Primary">
+<nav class="toolbar" aria-label="Primary" data-toolbar>
   <a class:list={["tool-btn", { active: current === "home" }]} href="/" aria-current={current === "home" ? "page" : undefined}>Home</a>
   <a
     class:list={["tool-btn", { active: current === "projects" }]}
@@ -23,48 +23,190 @@ const { current } = Astro.props;
     Research
   </a>
   <a
+      class:list={["tool-btn", { active: current === "swimming" }]}
+      href="/swimming"
+      aria-current={current === "swimming" ? "page" : undefined}
+  >
+    Swimming
+  </a>
+  <a
+    class:list={["tool-btn", { active: false }]}
+    href="https://unsplash.com/@dandandooo"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Photography
+  </a>
+  <a
       class:list={["tool-btn", { active: false }]}
       href="https://drive.google.com/file/d/1_dAI2V39bt89aqAvf-Q741beMLahxgGs/view?usp=sharing"
       target="_blank"
       rel="noopener noreferrer"
-      aria-current={undefined}
   >
     Resume
   </a>
 </nav>
 
+<script>
+  const toolbar = document.querySelector<HTMLElement>("[data-toolbar]");
+
+  if (toolbar) {
+    const links = Array.from(
+      toolbar.querySelectorAll<HTMLAnchorElement>(".tool-btn")
+    );
+
+    const getScrollTop = () => {
+      const docEl = document.documentElement?.scrollTop ?? 0;
+      const body = document.body?.scrollTop ?? 0;
+      const scrollingEl = document.scrollingElement?.scrollTop ?? 0;
+      const win = window.scrollY ?? 0;
+      return Math.max(docEl, body, scrollingEl, win);
+    };
+
+    const setScrolledState = () => {
+      const scrollTop = getScrollTop();
+      toolbar.classList.toggle("is-scrolled", scrollTop > 12);
+    };
+
+    // Always start clear on initial paint. Blur appears only after user scrolls.
+    toolbar.classList.remove("is-scrolled");
+
+    document.scrollingElement?.addEventListener("scroll", setScrolledState, { passive: true });
+    document.documentElement?.addEventListener("scroll", setScrolledState, { passive: true });
+    document.body?.addEventListener("scroll", setScrolledState, { passive: true });
+    window.addEventListener("scroll", setScrolledState, { passive: true });
+    document.addEventListener("scroll", setScrolledState, { passive: true });
+    window.addEventListener("resize", setScrolledState);
+
+    // Sync after layout/restore so bar appears if page isn't at top.
+    window.requestAnimationFrame(setScrolledState);
+
+    const isTypingTarget = (target: EventTarget | null) => {
+      if (!(target instanceof HTMLElement)) return false;
+      if (target.isContentEditable) return true;
+      const tag = target.tagName;
+      return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT";
+    };
+
+    window.addEventListener("keydown", (event) => {
+      if (
+        event.defaultPrevented ||
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        event.shiftKey ||
+        isTypingTarget(event.target)
+      ) {
+        return;
+      }
+
+      const keyNum = Number(event.key);
+      if (!Number.isInteger(keyNum) || keyNum < 1 || keyNum > links.length) {
+        return;
+      }
+
+      const targetLink = links[keyNum - 1];
+      if (!targetLink) return;
+
+      event.preventDefault();
+      targetLink.click();
+    });
+  }
+</script>
+
 <style>
   .toolbar {
-    position: sticky;
-    top: 1rem;
-    width: fit-content;
-    margin: 1rem auto 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
     display: flex;
-    gap: 0.45rem;
-    padding: 0.4rem;
-    border-radius: 999px;
-    border: 1px solid #ffffff26;
-    background: #090d16bd;
-    backdrop-filter: blur(10px);
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.98rem 1.15rem;
+    border-radius: 0;
+    border: 0 solid transparent;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: blur(0px) saturate(100%);
+    -webkit-backdrop-filter: blur(0px) saturate(100%);
     z-index: 3;
+    transition:
+      border-color 220ms ease,
+      background-color 220ms ease,
+      box-shadow 220ms ease,
+      backdrop-filter 220ms ease,
+      -webkit-backdrop-filter 220ms ease;
+  }
+
+  .toolbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background:
+      linear-gradient(140deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04) 30%, rgba(255, 255, 255, 0.16));
+    transition: opacity 220ms ease;
+  }
+
+  .toolbar.is-scrolled {
+    border-bottom: 1px solid #ffffff2b;
+    background: rgba(11, 17, 28, 0.54);
+    box-shadow:
+      0 8px 22px rgba(7, 11, 18, 0.3),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(22px) saturate(130%);
+    -webkit-backdrop-filter: blur(22px) saturate(130%);
+  }
+
+  .toolbar.is-scrolled::before {
+    opacity: 0.78;
+  }
+
+  :global(body) {
+    padding-top: 4.2rem;
   }
 
   .tool-btn {
     font-family: "Rajdhani", sans-serif;
-    font-size: 0.92rem;
+    font-size: 1.2rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: #f8fafc;
     text-decoration: none;
-    padding: 0.48rem 0.85rem;
-    border-radius: 999px;
-    border: 1px solid #ffffff22;
-    background: #ffffff0f;
+    padding: 0.62rem 0.9rem 0.72rem;
+    border: none;
+    background: transparent;
+    position: relative;
+    line-height: 1;
+    transition: color 180ms ease;
   }
 
-  .tool-btn.active {
-    border-color: #ffffff66;
-    background: #ffffff1f;
+  .tool-btn::after {
+    content: "";
+    position: absolute;
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: 0.26rem;
+    height: 2px;
+    border-radius: 999px;
+    background: rgba(248, 250, 252, 0.95);
+    transform: scaleX(0);
+    transform-origin: center;
+    opacity: 0;
+    transition: transform 180ms ease, opacity 180ms ease;
+  }
+
+  .tool-btn.active::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .tool-btn:hover {
+    color: #ffffff;
   }
 
   .tool-btn:focus-visible {
@@ -74,7 +216,28 @@ const { current } = Astro.props;
 
   @media (max-width: 640px) {
     .toolbar {
-      margin-top: 0.75rem;
+      top: 0;
+      margin-top: 0;
+      gap: 0.5rem;
+      justify-content: flex-start;
+      padding: 0.72rem 0.65rem 0.66rem;
+      overflow-x: auto;
+      max-width: 100vw;
+      scrollbar-width: none;
+    }
+
+    :global(body) {
+      padding-top: 4rem;
+    }
+
+    .toolbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tool-btn {
+      font-size: 1.05rem;
+      padding: 0.54rem 0.76rem 0.62rem;
+      white-space: nowrap;
     }
   }
 </style>
