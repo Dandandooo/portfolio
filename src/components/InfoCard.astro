@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 const {
   title,
   description,
@@ -35,13 +37,24 @@ const hasAward = Boolean(normalizedAward);
     </div>
     {icon && (
       <span class="card-icon" aria-hidden="true">
-        <img class="card-icon-image" src={icon} alt="" />
+        {icon.includes("/") ? (
+          <img class="card-icon-image" src={icon} alt="" />
+        ) : (
+          <Icon class="card-icon-image" name={icon} />
+        )}
       </span>
     )}
   </div>
   <p>{description}</p>
   <ul class="stack" aria-label={`${title} technologies`}>
-    {tags.map((item: string) => <li>{item}</li>)}
+    {tags.map((item: string | { label: string; href?: string }) => (
+      <li>
+        {typeof item !== "string" && item.href
+          ? <a class="tag-link" href={item.href} target="_blank" rel="noreferrer">{item.label}</a>
+          : (typeof item === "string" ? item : item.label)
+        }
+      </li>
+    ))}
   </ul>
   {(href || hasAward) && (
     <div class="card-footer">
@@ -206,6 +219,20 @@ const hasAward = Boolean(normalizedAward);
     border-radius: 999px;
     color: #dbe6f5;
     background: #ffffff0d;
+  }
+
+  .tag-link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    margin: -0.25rem -0.52rem;
+    padding: 0.25rem 0.52rem;
+    border-radius: 999px;
+  }
+
+  .stack li:has(.tag-link):hover {
+    background: color-mix(in srgb, var(--card-accent) 15%, #ffffff0d);
+    border-color: color-mix(in srgb, var(--card-accent) 78%, #fff5);
   }
 
   .card-link {

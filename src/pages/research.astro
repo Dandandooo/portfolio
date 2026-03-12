@@ -1,8 +1,115 @@
 ---
+import ResearchCard from "@/components/ResearchCard.astro";
+import Navbar from "@/components/Navbar.astro";
 import "../styles/background-lines.css";
 import "../styles/fonts.css";
-import Navbar from "@/components/Navbar.astro";
 
+const daniel = "https://scholar.google.com/citations?user=IisrrQMAAAAJ&hl=en";
+const dilek = "https://scholar.google.com/citations?hl=en&user=GMcL_9kAAAAJ";
+const gokhan = "https://scholar.google.com/citations?user=8XSlAp4AAAAJ&hl=en";
+const vardhan = "https://scholar.google.com/citations?user=sSt2OvIAAAAJ&hl=en";
+const yunze =
+  "https://scholar.google.com/citations?user=xvQIEKAAAAAJ&hl=en&oi=ao";
+const ziqi =
+  "https://scholar.google.com/citations?user=imNMDhoAAAAJ&hl=en&oi=ao";
+const yuxiong =
+  "https://scholar.google.com/citations?user=T_Q-xDkAAAAJ&hl=en&oi=ao";
+
+import tjhsst from "@/assets/icons/Tjlogo.png?url";
+
+const papers = [
+  {
+    title: "Simulating User Agents for Embodied Conversational AI",
+    venue: "NeurIPS Open World Agents Workshop",
+    date: "2024",
+    description:
+      "Embodied agents designed to assist users with tasks must possess the ability " +
+      "to engage in natural language interactions, interpret user instructions, execute " +
+      "actions to complete tasks and communicate effectively to resolve issues. However, " +
+      "collecting large-scale, diverse datasets of situated human-robot dialogues to train " +
+      "and evaluate such agents is expensive, labor-intensive, and time-consuming. To " +
+      "address this challenge, we propose building a large language model (LLM)-based " +
+      "user agent that can simulate user behavior during interactions with an embodied " +
+      "agent in a virtual environment. Given a specific user goal (e.g., make breakfast), at " +
+      "each time step during an interaction with an embodied agent (or a robot), the user " +
+      'agent may "observe" the robot actions or "speak" to either proactively intervene ' +
+      "with the robot behavior or reactively answer the robot’s questions. Such a user " +
+      "agent assists in improving the scalability and efficiency of embodied dialogues " +
+      "dataset generation and is critical for enhancing and evaluating the robot’s interaction " +
+      "and task completion ability, as well as for future research, such as reinforcement " +
+      "learning using AI feedback. We evaluate our user agent’s ability to generate human-" +
+      "like behaviors by comparing its simulated dialogues with the benchmark TEACh " +
+      "dataset. We perform three experiments: zero-shot prompting to predict the dialogue " +
+      "act from history, few-shot prompting, and fine-tuning on the TEACh training subset. " +
+      "Our results demonstrate that the LLM-based user agent can achieve an F-measure " +
+      "of 42% in mimicking human speaking behavior with simple zero-shot prompting " +
+      "and 43.4% with few-shot prompting. Through fine-tuning, we achieved similar " +
+      "success in deciding when to speak but much greater success in deciding what to " +
+      "say, from 51.1% to 62.5%. These findings showcase the feasibility and promise of " +
+      "the proposed approach for assessing and enhancing the effectiveness and reliability " +
+      "of robot task completion through natural language communication.",
+    href: "https://arxiv.org/abs/2410.23535",
+    authors: [
+      { name: "Daniel Philipov", href: daniel },
+      { name: "Vardhan Dongre", href: vardhan },
+      { name: "Gokhan Tur", href: gokhan },
+      { name: "Dilek Hakkani-Tür", href: dilek },
+    ],
+    accent: "plum",
+    icon: "block-i",
+    award: "Best Application Paper @ 2024 UMich Embodied AI Symposium",
+  },
+  {
+    title: "PPTGPT: Visual Assistant for PowerPoint Presentations",
+    venue: "NCSA Student Research Conference",
+    date: "2025",
+    description:
+      "While current Large Language Models (LLMs) have revolutionized textual reasoning, " +
+      "they consistently struggle with tasks requiring spatial reasoning and visual understanding. " +
+      "This research introduces PPTGPT, a visual assistant designed to bridge this gap by enabling " +
+      "direct, instruction-based modification of PowerPoint presentations. Unlike traditional " +
+      "assistants limited to one-dimensional text, PPTGPT utilizes visual cues and a model-agnostic " +
+      "pipeline to apply precise transformations to presentation files.Our methodology addresses the " +
+      "structural complexity and context-length limitations of the PowerPoint format by bypassing the " +
+      "user interface to modify source code directly via a JSON Patch interface. To evaluate performance, " +
+      "we established a comprehensive benchmark across seven transformation categories, including slide " +
+      "reorganization and component modification. We further implement an automated evaluation framework " +
+      "that utilizes an LLM to compare predicted outputs against ground-truth images, categorizing " +
+      "results based on instruction adherence and format validity. Preliminary results demonstrate a " +
+      "functional baseline model capable of direct PowerPoint modification. Future work will focus on " +
+      "expanding the dataset through procedural generation and fine-tuning smaller, specialized models " +
+      "to enhance out-of-distribution performance.",
+    // href: "https://link-to-paper",
+    authors: [
+      { name: "Daniel Philipov", href: daniel },
+      { name: "Yunze Man", href: yunze },
+      { name: "Ziqi Pang", href: ziqi },
+      { name: "Yuxiong Wang", href: yuxiong },
+    ],
+    accent: "orange",
+    icon: "block-i",
+  },
+  {
+    title: "Generating Exoplanet Artist Renditions using Machine Learning",
+    venue: "Junior Science and Humanities Symposium",
+    date: "2023",
+    description:
+      "Images of distant planets have captivated thousands of young adults into a career in " +
+      "STEM. Yet despite bold strides into space exploration, our current technology has only " +
+      "been able to bring back to Earth blurred pixels of thousands of suspected exoplanets, " +
+      "and only 61 such exoplanets have been artistically depicted by NASA artists. My " +
+      "research uses artificial intelligence and NASA’s Exoplanet Archive data to produce " +
+      "artist renditions of exoplanets based on their orbital and other physical characteristics. " +
+      "I use neural networks to enable a machine to ‘learn’ from the scientifically-informed " +
+      "human-based artistic renditions to produce thousands of machine-generated artistic " +
+      "renditions of new and unexplored exoplanets in minutes. These images will attract " +
+      "new funding for space exploration and inspire more children into scientific careers.",
+    // href: "https://link-to-paper",
+    authors: [{ name: "Daniel Philipov", href: daniel }],
+    accent: "cyan",
+    icon: tjhsst,
+  },
+];
 ---
 
 <html lang="en">
@@ -21,6 +128,10 @@ import Navbar from "@/components/Navbar.astro";
         <p class="kicker">Selected Papers and Publications</p>
         <h1>Research</h1>
       </header>
+
+      <section class="research-grid" aria-label="Research papers">
+        {papers.map((paper) => <ResearchCard {...paper} />)}
+      </section>
     </main>
   </body>
 </html>
@@ -28,8 +139,12 @@ import Navbar from "@/components/Navbar.astro";
 <style>
   :global(:root) {
     --page-bg-color: #070a11;
-    --page-background:
-      linear-gradient(180deg, #171025 0%, #110b1a 48%, #09070d 100%),
+    --page-background: linear-gradient(
+        180deg,
+        #171025 0%,
+        #110b1a 48%,
+        #09070d 100%
+      ),
       radial-gradient(100vw 60vh at 10% -10%, #8f6ad466, transparent 55%),
       radial-gradient(100vw 60vh at 85% -20%, #b48be652, transparent 60%);
     margin: 0;
@@ -80,4 +195,33 @@ import Navbar from "@/components/Navbar.astro";
     font-size: clamp(2rem, 4vw, 3.2rem);
   }
 
+  .research-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding-bottom: 5rem;
+  }
+
+  .research-grid :global(.info-card) {
+    grid-column: 1 / -1;
+  }
+
+  .research-grid :global(.info-card:nth-child(odd)) {
+    transform: rotate(-0.15deg);
+  }
+
+  .research-grid :global(.info-card:nth-child(even)) {
+    transform: rotate(0.15deg);
+  }
+
+  .research-grid :global(.info-card:hover) {
+    transform: translateY(-4px) rotate(-0.1deg);
+  }
+
+  @media (max-width: 640px) {
+    .research-grid :global(.info-card) {
+      transform: none;
+    }
+  }
 </style>

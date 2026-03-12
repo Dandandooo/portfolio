@@ -1,0 +1,44 @@
+---
+import InfoCard from "@/components/InfoCard.astro";
+
+const {
+  title = "Research Paper",
+  description,
+  href,
+  authors = [],
+  accent = "plum",
+  venue = "",
+  date = "",
+  secondaryDate,
+  award,
+  icon,
+} = Astro.props;
+
+const accentMap: Record<string, string> = {
+  cyan: "var(--accent-cyan)",
+  lime: "var(--accent-lime)",
+  amber: "var(--accent-amber)",
+  rose: "var(--accent-rose)",
+  plum: "var(--accent-plum)",
+  orange: "var(--accent-orange)",
+};
+
+const accentColor = accentMap[accent] ?? accentMap.plum;
+const eyebrow = venue ? `${venue}  ·  ${date}` : date;
+
+const tags = authors.map((a: string | { name: string; href?: string }) =>
+  typeof a === "string" ? a : { label: a.name, href: a.href }
+);
+---
+
+<InfoCard
+  title={title}
+  description={description}
+  href={href}
+  tags={tags}
+  accent={accentColor}
+  eyebrow={eyebrow}
+  secondaryDate={secondaryDate}
+  award={award}
+  icon={icon}
+/>

@@ -3,33 +3,28 @@ import "@/styles/background-lines.css";
 import "@/styles/fonts.css";
 import Navbar from "@/components/Navbar.astro";
 
-import * as icons from "@/assets/project-icons.ts";
+import { Icon } from "astro-icon/components";
 
-const tech_stack = [
-	[icons.pythonIcon, "python"],
-	[icons.zigIcon, "Zig"],
-	[icons.rustIcon, "Rust"],
-	[icons.jupyterIcon, "Jupyter"],
-	[icons.cIcon, "C"],
-	[icons.cppIcon, "C++"],
-	[icons.cudaIcon, "CUDA"],
-	[icons.bashIcon, "Bash"],
-	[icons.nixIcon, "Nix"],
-	[icons.javaIcon, "Java"],
-	[icons.ocamlIcon, "OCaml"],
-	[icons.javascriptIcon, "JavaScript"],
-	[icons.reactIcon, "React"],
-	[icons.latexIcon, "LaTeX"],
-	[icons.dockerIcon, "Docker"],
-	[icons.gitIcon, "Git"],
-	[icons.godotIcon, "Godot"],
-	[icons.unityIcon, "Unity"],
-	[icons.macosIcon, "MacOS"],
-]
+const tech_stack: string[] = [
+	"catppuccin:python",
+	"catppuccin:zig",
+	"catppuccin:rust-alt",
+	"catppuccin:javascript-react",
+	"catppuccin:javascript",
+	"catppuccin:astro",
+	"catppuccin:java",
+	"catppuccin:ocaml",
+	"catppuccin:lua",
+	"catppuccin:latex",
+	"catppuccin:docker",
+	"catppuccin:git",
+	"catppuccin:godot",
+	"catppuccin:unity",
+	"catppuccin:macos",
+];
 
 import photo from "@/assets/images/profile.jpeg";
 import { Image } from "astro:assets";
-
 ---
 
 <html lang="en">
@@ -60,26 +55,31 @@ import { Image } from "astro:assets";
 				<article class="bio-box">
 					<h3>About Me</h3>
 					<p>
-						Hi, my name is Daniel Philipov! I am a Junior at UIUC studying
-						Computer Science and Physics, and minoring in Astronomy.
+						Hi, my name is Daniel Philipov! I am a Junior at UIUC
+						studying Computer Science and Physics, and minoring in
+						Astronomy.
 					</p>
 					<p>
-						My hobbies include coding, competitive swimming, skiing, soccer,
-						and playing video games with my friends and family.
+						My hobbies include coding, competitive swimming, skiing,
+						soccer, and playing video games with my friends and
+						family.
 					</p>
 					<p>
-						When it comes to coding, I'm driven by the beauty of code. I strive to achieve
-						neatness, simplicity, and performance in everything I make, whether it be an
-						AI algorithm, platformer game, or even this website.
+						When it comes to coding, I'm driven by the beauty of
+						code. I strive to achieve neatness, simplicity, and
+						performance in everything I make, whether it be an AI
+						algorithm, platformer game, or even this website.
 					</p>
 					<p>
-						You can find me this summer at Google Sunnyvale, working on overhauling
-						the GMail spam detection engine.
+						You can find me this summer at Google Sunnyvale, working
+						on overhauling the GMail spam detection engine.
 					</p>
 					<h3>My Tech Stack</h3>
-					{tech_stack.map(([icon, name], _) =>
-						<img src={icon} alt={name} title={name} height="24pt" width="30pt">
-					)}
+					{
+						tech_stack.map((icon_name, _) => (
+							<Icon name={icon_name} height="24pt" width="30pt" />
+						))
+					}
 				</article>
 			</section>
 		</main>
@@ -89,8 +89,12 @@ import { Image } from "astro:assets";
 <style>
 	:global(:root) {
 		--page-bg-color: #0f0404;
-		--page-background:
-			linear-gradient(180deg, #350c0c 0%, #220707 48%, #0f0404 100%),
+		--page-background: linear-gradient(
+				180deg,
+				#350c0c 0%,
+				#220707 48%,
+				#0f0404 100%
+			),
 			radial-gradient(100vw 60vh at 10% -10%, #fb718550, transparent 55%),
 			radial-gradient(100vw 60vh at 85% -20%, #ef444440, transparent 60%);
 		--line-pattern-color: rgba(255, 235, 210, 0.16);
@@ -190,9 +194,16 @@ import { Image } from "astro:assets";
 
 	.bio-box {
 		position: relative;
-		background:
-			radial-gradient(120% 120% at 0% 0%, rgba(251, 113, 133, 0.22), transparent 58%),
-			linear-gradient(180deg, rgba(21, 8, 12, 0.95), rgba(21, 8, 12, 0.87));
+		background: radial-gradient(
+				120% 120% at 0% 0%,
+				rgba(251, 113, 133, 0.22),
+				transparent 58%
+			),
+			linear-gradient(
+				180deg,
+				rgba(21, 8, 12, 0.95),
+				rgba(21, 8, 12, 0.87)
+			);
 		border: 1px solid rgba(251, 113, 133, 0.32);
 		box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
 		overflow: hidden;
