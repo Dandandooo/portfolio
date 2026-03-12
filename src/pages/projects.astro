@@ -1,6 +1,7 @@
 ---
 import Project from "@/components/project.astro";
 import Navbar from "@/components/Navbar.astro";
+import BaseHead from "@/components/BaseHead.astro";
 import "@/styles/background-lines.css";
 import "@/styles/fonts.css";
 
@@ -163,12 +164,7 @@ const projects = [
 ---
 
 <html lang="en">
-  <head>
-    <title>Daniel's Projects</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon-g.svg" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
+  <BaseHead title="Daniel's Projects" favicon="/favicon-g.svg" />
   <body>
     <Navbar current="projects" />
 
@@ -179,7 +175,7 @@ const projects = [
       </header>
 
       <section class="project-grid" aria-label="Projects">
-        {projects.map((project) => <Project {...project} />)}
+        {projects.map((project, index) => <Project {...project} index={index} />)}
       </section>
     </main>
   </body>
@@ -196,19 +192,10 @@ const projects = [
       ),
       radial-gradient(100vw 60vh at 10% -10%, #2f8f6940, transparent 55%),
       radial-gradient(100vw 60vh at 85% -20%, #4b9b7240, transparent 60%);
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
     color: #f8fafc;
   }
 
   :global(body) {
-    margin: 0;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: none;
     color: #f8fafc;
     position: relative;
     isolation: isolate;

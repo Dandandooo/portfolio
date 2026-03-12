@@ -4,16 +4,26 @@
   --line-pattern-color: rgba(248, 250, 252, 0.12);
 }
 
-html,
-body {
+html {
   background-color: var(--page-bg-color);
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
 }
 
 body {
+  background-color: var(--page-bg-color);
   background: var(--page-background);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  height: 100vh;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none;
 }
 
 body::before {

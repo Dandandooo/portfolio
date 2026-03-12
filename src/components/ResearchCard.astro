@@ -12,6 +12,7 @@ const {
   secondaryDate,
   award,
   icon,
+  index = 0,
 } = Astro.props;
 
 const accentMap: Record<string, string> = {
@@ -41,4 +42,5 @@ const tags = authors.map((a: string | { name: string; href?: string }) =>
   secondaryDate={secondaryDate}
   award={award}
   icon={icon}
+  index={index * 3}
 />

@@ -1,6 +1,7 @@
 ---
 import ResearchCard from "@/components/ResearchCard.astro";
 import Navbar from "@/components/Navbar.astro";
+import BaseHead from "@/components/BaseHead.astro";
 import "../styles/background-lines.css";
 import "../styles/fonts.css";
 
@@ -15,7 +16,7 @@ const ziqi =
 const yuxiong =
   "https://scholar.google.com/citations?user=T_Q-xDkAAAAJ&hl=en&oi=ao";
 
-import tjhsst from "@/assets/icons/Tjlogo.png?url";
+import tjhsst from "@/icons/Tjlogo.png?url";
 
 const papers = [
   {
@@ -113,13 +114,7 @@ const papers = [
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon-p.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Daniel's Research</title>
-  </head>
+  <BaseHead title="Daniel's Research" favicon="/favicon-p.svg" />
   <body>
     <Navbar current="research" />
 
@@ -130,7 +125,7 @@ const papers = [
       </header>
 
       <section class="research-grid" aria-label="Research papers">
-        {papers.map((paper) => <ResearchCard {...paper} />)}
+        {papers.map((paper, index) => <ResearchCard {...paper} index={index} />)}
       </section>
     </main>
   </body>
@@ -147,19 +142,10 @@ const papers = [
       ),
       radial-gradient(100vw 60vh at 10% -10%, #8f6ad466, transparent 55%),
       radial-gradient(100vw 60vh at 85% -20%, #b48be652, transparent 60%);
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
     color: #f8fafc;
   }
 
   :global(body) {
-    margin: 0;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-y: none;
     color: #f8fafc;
     position: relative;
     isolation: isolate;

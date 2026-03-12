@@ -11,6 +11,7 @@ const {
   secondaryDate,
   award,
   icon,
+  index = 0,
 } = Astro.props;
 
 const accentMap: Record<string, string> = {
@@ -35,4 +36,5 @@ const accentColor = accentMap[accent] ?? accentMap.cyan;
   secondaryDate={secondaryDate}
   award={award}
   icon={icon}
+  index={index}
 />
