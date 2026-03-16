@@ -1,13 +1,30 @@
 ---
 interface Props {
-  current: "home" | "projects" | "research" | "swimming" | "photography";
+  current:
+    | "home"
+    | "projects"
+    | "projects2"
+    | "research"
+    | "swimming"
+    | "photography";
 }
 
 const { current } = Astro.props;
 ---
 
 <nav class="toolbar" aria-label="Primary" data-toolbar>
-  <a class:list={["tool-btn", { active: current === "home" }]} href="/" aria-current={current === "home" ? "page" : undefined}>Home</a>
+  {
+    current !== "home" && (
+      <a class="name-link" href="/" aria-label="Go to home">
+        Daniel Philipov
+      </a>
+    )
+  }
+  <a
+    class:list={["tool-btn", { active: current === "home" }]}
+    href="/"
+    aria-current={current === "home" ? "page" : undefined}>Home</a
+  >
   <a
     class:list={["tool-btn", { active: current === "projects" }]}
     href="/projects"
@@ -15,6 +32,13 @@ const { current } = Astro.props;
   >
     Projects
   </a>
+  <!-- <a
+    class:list={["tool-btn", { active: current === "projects2" }]}
+    href="/projects_alt"
+    aria-current={current === "projects2" ? "page" : undefined}
+  >
+    Projects Alt
+  </a> -->
   <a
     class:list={["tool-btn", { active: current === "research" }]}
     href="/research"
@@ -23,25 +47,10 @@ const { current } = Astro.props;
     Research
   </a>
   <a
-      class:list={["tool-btn", { active: current === "swimming" }]}
-      href="/swimming"
-      aria-current={current === "swimming" ? "page" : undefined}
-  >
-    Swimming
-  </a>
-  <a
-    class:list={["tool-btn", { active: false }]}
-    href="https://unsplash.com/@dandandooo"
+    class:list={["tool-btn resume-link", { active: false }]}
+    href="https://drive.google.com/file/d/1_dAI2V39bt89aqAvf-Q741beMLahxgGs/view?usp=sharing"
     target="_blank"
     rel="noopener noreferrer"
-  >
-    Photography
-  </a>
-  <a
-      class:list={["tool-btn", { active: false }]}
-      href="https://drive.google.com/file/d/1_dAI2V39bt89aqAvf-Q741beMLahxgGs/view?usp=sharing"
-      target="_blank"
-      rel="noopener noreferrer"
   >
     Resume
   </a>
@@ -71,9 +80,15 @@ const { current } = Astro.props;
     // Always start clear on initial paint. Blur appears only after user scrolls.
     toolbar.classList.remove("is-scrolled");
 
-    document.scrollingElement?.addEventListener("scroll", setScrolledState, { passive: true });
-    document.documentElement?.addEventListener("scroll", setScrolledState, { passive: true });
-    document.body?.addEventListener("scroll", setScrolledState, { passive: true });
+    document.scrollingElement?.addEventListener("scroll", setScrolledState, {
+      passive: true,
+    });
+    document.documentElement?.addEventListener("scroll", setScrolledState, {
+      passive: true,
+    });
+    document.body?.addEventListener("scroll", setScrolledState, {
+      passive: true,
+    });
     window.addEventListener("scroll", setScrolledState, { passive: true });
     document.addEventListener("scroll", setScrolledState, { passive: true });
     window.addEventListener("resize", setScrolledState);
@@ -120,6 +135,7 @@ const { current } = Astro.props;
     top: 0;
     left: 0;
     width: 100%;
+    box-sizing: border-box;
     margin: 0;
     display: flex;
     justify-content: center;
@@ -132,11 +148,8 @@ const { current } = Astro.props;
     backdrop-filter: blur(0px) saturate(100%);
     -webkit-backdrop-filter: blur(0px) saturate(100%);
     z-index: 3;
-    transition:
-      border-color 220ms ease,
-      background-color 220ms ease,
-      box-shadow 220ms ease,
-      backdrop-filter 220ms ease,
+    transition: border-color 220ms ease, background-color 220ms ease,
+      box-shadow 220ms ease, backdrop-filter 220ms ease,
       -webkit-backdrop-filter 220ms ease;
   }
 
@@ -147,16 +160,19 @@ const { current } = Astro.props;
     border-radius: inherit;
     pointer-events: none;
     opacity: 0;
-    background:
-      linear-gradient(140deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04) 30%, rgba(255, 255, 255, 0.16));
+    background: linear-gradient(
+      140deg,
+      rgba(255, 255, 255, 0.24),
+      rgba(255, 255, 255, 0.04) 30%,
+      rgba(255, 255, 255, 0.16)
+    );
     transition: opacity 220ms ease;
   }
 
   .toolbar.is-scrolled {
     border-bottom: 1px solid #ffffff2b;
     background: rgba(11, 17, 28, 0.54);
-    box-shadow:
-      0 8px 22px rgba(7, 11, 18, 0.3),
+    box-shadow: 0 8px 22px rgba(7, 11, 18, 0.3),
       inset 0 0 0 1px rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(22px) saturate(130%);
     -webkit-backdrop-filter: blur(22px) saturate(130%);
@@ -214,6 +230,37 @@ const { current } = Astro.props;
     outline-offset: 2px;
   }
 
+  .resume-link {
+    position: absolute;
+    right: 1.15rem;
+  }
+
+  .name-link {
+    font-family: "Rajdhani", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 0.62rem 0.9rem 0.72rem;
+    position: absolute;
+    left: 1.15rem;
+    line-height: 1;
+    transition: color 180ms ease, opacity 180ms ease;
+    opacity: 0.85;
+  }
+
+  .name-link:hover {
+    color: #ffffff;
+    opacity: 1;
+  }
+
+  .name-link:focus-visible {
+    outline: 2px solid rgba(169, 220, 118, 0.9);
+    outline-offset: 2px;
+  }
+
   @media (max-width: 640px) {
     .toolbar {
       top: 0;
@@ -238,6 +285,16 @@ const { current } = Astro.props;
       font-size: 1.05rem;
       padding: 0.54rem 0.76rem 0.62rem;
       white-space: nowrap;
+    }
+
+    .resume-link {
+      position: relative;
+      right: auto;
+    }
+
+    .name-link {
+      position: relative;
+      left: auto;
     }
   }
 </style>

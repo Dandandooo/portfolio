@@ -6,12 +6,17 @@ import BaseHead from "@/components/BaseHead.astro";
 
 import { Icon } from "astro-icon/components";
 
+// https://icon-sets.iconify.design/catppuccin/page-2.html
 const tech_stack: string[] = [
 	"catppuccin:python",
 	"catppuccin:zig",
 	"catppuccin:rust-alt",
+	"catppuccin:c",
+	"catppuccin:cpp",
+	"catppuccin:cuda",
 	"catppuccin:javascript-react",
 	"catppuccin:javascript",
+	"catppuccin:typescript",
 	"catppuccin:astro",
 	"catppuccin:java",
 	"catppuccin:ocaml",
@@ -21,6 +26,7 @@ const tech_stack: string[] = [
 	"catppuccin:git",
 	"catppuccin:godot",
 	"catppuccin:unity",
+	"catppuccin:nix",
 	"catppuccin:macos",
 ];
 
@@ -72,7 +78,12 @@ import { Image } from "astro:assets";
 					<h3>My Tech Stack</h3>
 					{
 						tech_stack.map((icon_name, _) => (
-							<Icon name={icon_name} height="24pt" width="30pt" />
+							<Icon
+								name={icon_name}
+								height="20pt"
+								width="23pt"
+								title={icon_name.split(":")[1]}
+							/>
 						))
 					}
 				</article>
