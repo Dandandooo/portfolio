@@ -3,6 +3,7 @@ import "../styles/background-lines.css";
 import "../styles/fonts.css";
 import Navbar from "@/components/Navbar.astro";
 import PhotoTile from "@/components/PhotoTile.astro";
+import BaseHead from "@/components/BaseHead.astro";
 
 type PhotoTileData = {
   title: string;
@@ -37,13 +38,7 @@ const photoTiles: PhotoTileData[] = [
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon-p.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Daniel's Photography</title>
-  </head>
+  <BaseHead title="Daniel's Photography" favicon="/favicon-p.svg" />
   <body>
     <Navbar current="photography" />
 
