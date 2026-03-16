@@ -6,6 +6,6 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
   site: "https://dandandooo.github.io/",
-  base: "/",
+  base: "/portfolio",
   integrations: [icon()]
 });
